@@ -1,11 +1,16 @@
 package order;
+
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
+
 import java.io.File;
+
 import static io.restassured.RestAssured.given;
 
 public class Order {
     public final String ORDER_ROOT = "/orders";
 
+    @Step("Создание заказа")
     public ValidatableResponse createOrder(File file) {
         return given().log().all()
                 .header("Content-Type", "application/json")

@@ -5,7 +5,9 @@ import jdk.jfr.Description;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 
@@ -46,7 +48,7 @@ public class CourierCreationTest {
     }
 
     @Test
-    @Description("Получение списка заказов")
+    @Description("Првоерка получения списка заказов")
     public void getOrdersTest() {
         courierClient.create(courier);
         CourierData data = CourierData.from(courier);
@@ -56,6 +58,7 @@ public class CourierCreationTest {
                 .extract().path("orders");
         assertNotNull(orderResponse);
     }
+
     @Test
     @Description("Проверка ошибки при создании второго курьера с существующими данными")
     public void createTwoCouriersMessageTest() {
@@ -65,6 +68,7 @@ public class CourierCreationTest {
                 .extract().path("message");
         assertEquals("Этот логин уже используется. Попробуйте другой.", loginAlreadyExists);
     }
+
     @Test
     @Description("Проверка, что успешный запрос возвращает ok: true")
     public void courierTestReturnTrue() {

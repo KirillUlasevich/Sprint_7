@@ -5,6 +5,7 @@ import jdk.jfr.Description;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -12,11 +13,13 @@ public class LoginTest {
     Courier courier;
     CourierClient courierClient;
     private int courierId;
+
     @Before
     public void setup() {
         courier = Courier.getRandomCourier();
         courierClient = new CourierClient();
     }
+
     @After
     public void deleteCourier() {
         CourierData data = CourierData.from(courier);
@@ -24,6 +27,7 @@ public class LoginTest {
                 .extract().path("id");
         courierClient.delete(courierId);
     }
+
     @Test
     @Description("Проверка возможности залогиниться")
     public void courierLoginTest() {
@@ -36,6 +40,7 @@ public class LoginTest {
                 .statusCode(200);
 
     }
+
     @Test
     @Description("Проверка невозможности входа без логина")
     public void enterNoLoginTest() {
@@ -45,6 +50,7 @@ public class LoginTest {
                 .assertThat()
                 .statusCode(400);
     }
+
     @Test
     @Description("Проверка невозможности входа без пароля")
     public void enterNoPassTest() {
@@ -54,6 +60,7 @@ public class LoginTest {
                 .assertThat()
                 .statusCode(400);
     }
+
     @Test
     @Description("Проверка сообщения об ошибке при входе без логина")
     public void enterWithoutLoginMessageTest() {
@@ -64,6 +71,7 @@ public class LoginTest {
                 .extract().path("message");
         assertEquals("Недостаточно данных для входа", message);
     }
+
     @Test
     @Description("Проверка сообщения об ошибке при входе без пароля")
     public void enterWithoutPasswordMessageTest() {
@@ -75,6 +83,7 @@ public class LoginTest {
                 .extract().path("message");
         assertEquals("Недостаточно данных для входа", message);
     }
+
     @Test
     @Description("Проверка сообщения об ошибке при входе с неверным паролем")
     public void enterWrongPasswordMessageTest() {
@@ -86,6 +95,7 @@ public class LoginTest {
                 .extract().path("message");
         assertEquals("Учетная запись не найдена", message);
     }
+
     @Test
     @Description("Проверка сообщения об ошибке при входе с неверным логином")
     public void enterWrongLoginMessageTest() {
@@ -97,6 +107,7 @@ public class LoginTest {
                 .extract().path("message");
         assertEquals("Учетная запись не найдена", message);
     }
+
     @Test
     @Description("Проверка сообщения об ошибке при входе с несуществующим аккаунтом")
     public void enterWrongCourierMessageTest() {
@@ -108,6 +119,7 @@ public class LoginTest {
                 .extract().path("message");
         assertEquals("Учетная запись не найдена", message);
     }
+
     @Test
     @Description("Проверка возвращения id при успешном входе")
     public void courierLoginReturnIdTest() {

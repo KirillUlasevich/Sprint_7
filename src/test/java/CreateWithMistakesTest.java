@@ -9,11 +9,13 @@ import static org.junit.Assert.assertEquals;
 public class CreateWithMistakesTest {
     Courier courier;
     CourierClient courierClient;
+
     @Before
     public void setup() {
         courier = Courier.getRandomCourier();
         courierClient = new CourierClient();
     }
+
     @Test
     @Description("Проверка невозможности создания курьера без пароля")
     public void createWithoutPasswordTest() {
@@ -22,6 +24,7 @@ public class CreateWithMistakesTest {
                 .assertThat()
                 .statusCode(400);
     }
+
     @Test
     @Description("Проверка невозможности создания курьера без логина")
     public void createWithoutLoginTest() {
@@ -30,6 +33,7 @@ public class CreateWithMistakesTest {
                 .assertThat()
                 .statusCode(400);
     }
+
     @Test
     @Description("Проверка ответа на запрос на несуществующую ручку")
     public void createCourierWrongRootStatusTest() {
@@ -37,6 +41,7 @@ public class CreateWithMistakesTest {
                 .assertThat()
                 .statusCode(404);
     }
+
     @Test
     @Description("Проверка ответа на неверный метод запроса GET")
     public void createCourierWrongMethodStatusTest() {
@@ -44,6 +49,7 @@ public class CreateWithMistakesTest {
                 .assertThat()
                 .statusCode(404);
     }
+
     @Test
     @Description("Проверка сообщения о невведенном пароле при создании аккаунта")
     public void createWithoutPasswordMessageTest() {
@@ -53,6 +59,7 @@ public class CreateWithMistakesTest {
                 .extract().path("message");
         assertEquals("Недостаточно данных для создания учетной записи", requestWithoutLoginOrPassword);
     }
+
     @Test
     @Description("Проверка сообщения о невведенном логине при создании аккаунта")
     public void createWithoutLoginMessageTest() {
